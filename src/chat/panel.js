@@ -1,12 +1,12 @@
 import React, {Component, PropTypes} from "react";
 
 export default class Panel extends Component {
-  propTypes = {
+  static propTypes = {
     title: PropTypes.string,
     style: PropTypes.object,
   };
 
-  defaultProps = {
+  static defaultProps = {
     title: '',
     style: {}
   };

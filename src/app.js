@@ -3,15 +3,23 @@ import PanelContainer from "./chat/panel-container";
 import Panel from "./chat/panel";
 
 export default class App extends Component {
-  render() {
-    const maxPanelHeight = '50%';
-    const panelStyle = {maxHeight: maxPanelHeight};
+  state = {panels: []};
 
+  componentWillMount() {
+    const panelStyle = {maxHeight: '50%'};
+    this.setState({
+      panels: [
+        <Panel title='Groups' style={panelStyle} key="Groups"/>,
+        <Panel title='Contacts' style={panelStyle} key="Contacts"/>
+      ]
+    });
+  }
+
+  render() {
     return (
       <div>
         <PanelContainer>
-          <Panel title='Groups' style={panelStyle}/>
-          <Panel title='Contacts' style={panelStyle}/>
+          {this.state.panels}
         </PanelContainer>
       </div>
     );

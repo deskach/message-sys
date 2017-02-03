@@ -2,9 +2,8 @@ import React, {Component, PropTypes} from "react";
 
 
 export default class PanelContainer extends Component {
-  propTypes = {};
-
-  defaultProps = {};
+  static propTypes = {};
+  static defaultProps = {};
 
   render() {
     return (
