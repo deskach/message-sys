@@ -2,17 +2,20 @@ import React, {Component, PropTypes} from "react";
 
 export default class Panel extends Component {
   propTypes = {
-    title: PropTypes.string
+    title: PropTypes.string,
+    style: PropTypes.object,
   };
 
   defaultProps = {
-    title: ''
+    title: '',
+    style: {}
   };
 
   render() {
     return (
-      <div>
-        Base Panel with custom header
+      <div style={this.props.style}>
+        <div> {this.props.title} </div>
+        <div> {this.props.children} </div>
       </div>
     );
   }
