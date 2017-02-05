@@ -1,3 +1,7 @@
-/**
- * Created by Dzianis.Kachanau on 3/02/2017.
- */
+import React, {Component, PropTypes} from "react";
+import BaseItem from "./base";
+
+export default class Group extends BaseItem {
+
+}
+
