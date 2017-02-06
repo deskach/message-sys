@@ -13,24 +13,9 @@ const TEACHER = ["Dr. Severus Snape", "Prof. Dumbledore",];
 
 export default class App extends Component {
   grContacts = {
-    [GROUP[0]]: [
-      <ContactItem key={uid()}
-                   type={ContactItem.TYPE.TEACHER}
-                   title={TEACHER[0]}
-                   onClick={this.toggleChatWindow.bind(this, TEACHER[0])}/>,
-      <ContactItem key={uid()}
-                   type={ContactItem.TYPE.TEACHER}
-                   title={TEACHER[1]}
-                   onClick={this.toggleChatWindow.bind(this, TEACHER[1])}/>,
-      <ContactItem key={uid()} title={STUDENT[0]} onClick={this.toggleChatWindow.bind(this, STUDENT[0])}/>,
-      <ContactItem key={uid()} title={STUDENT[1]} onClick={this.toggleChatWindow.bind(this, STUDENT[1])}/>,
-    ],
-    [GROUP[1]]: [
-      <ContactItem key={uid()} title={STUDENT[1]} onClick={this.toggleChatWindow.bind(this, STUDENT[1])}/>,
-      <ContactItem key={uid()} title={STUDENT[2]} onClick={this.toggleChatWindow.bind(this, STUDENT[2])}/>,
-      <ContactItem key={uid()} title={STUDENT[3]} onClick={this.toggleChatWindow.bind(this, STUDENT[3])}/>,
-    ],
-    [GROUP[2]]: STUDENT.map(name => <ContactItem key={uid()} title={name}/>),
+    [GROUP[0]]: [TEACHER[0], TEACHER[1], STUDENT[0], STUDENT[1]],
+    [GROUP[1]]: [STUDENT[1], STUDENT[2], STUDENT[3]],
+    [GROUP[2]]: STUDENT,
   };
 
   state = {
@@ -50,7 +35,14 @@ export default class App extends Component {
   }
 
   renderContacts() {
-    return this.grContacts[this.state.selectedGroup];
+    return this.grContacts[this.state.selectedGroup].map(name => {
+      const type = TEACHER.indexOf(name) >= 0 ? ContactItem.TYPE.TEACHER : ContactItem.TYPE.STUDENT;
+
+      return <ContactItem type={type}
+                          key={name}
+                          onClick={this.toggleChatWindow.bind(this, name)}
+                          title={name}/>
+    });
   }
 
   toggleChatWindow(title) {

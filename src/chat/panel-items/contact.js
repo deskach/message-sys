@@ -5,10 +5,12 @@ const CONTACT_TYPE = {TEACHER: 1, STUDENT: 2};
 
 export default class Contact extends BaseItem {
   static propTypes = {
+    ...BaseItem.propTypes,
     type: PropTypes.number,
     onClick: PropTypes.func,
   };
   static defaultProps = {
+    ...BaseItem.defaultProps,
     type: CONTACT_TYPE.STUDENT,
   };
   static TYPE = CONTACT_TYPE;
