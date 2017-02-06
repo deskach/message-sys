@@ -21,7 +21,7 @@ export default class App extends Component {
   state = {
     groups: [GROUP[0], GROUP[1], GROUP[2]],
     selectedGroup: GROUP[0],
-    activeChats: [],
+    activeChats: [STUDENT[0]],
   };
 
   onGroupClick(title) {

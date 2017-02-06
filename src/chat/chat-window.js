@@ -19,8 +19,9 @@ export default class MessageWindow extends Component {
           <header className="cursor">
             <strong>{this.props.title}</strong>
           </header>
-          <div>You must click my handle to drag me</div>
+          <div id="content"></div>
           <footer>
+            <input type="text" placeholder="Type here..."/>
           </footer>
         </div>
       </Draggable>
