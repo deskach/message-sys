@@ -4,37 +4,34 @@ import Panel from "./panel";
 import ContactItem from "./panel-items/contact";
 import GroupItem from "./panel-items/group";
 import {uid} from "./util";
+import MessageWindow from "./message-window";
 
 // TODO: Replace this mock and all related code with the database values
-const GR_TITLE1 = "Project A";
-const GR_TITLE2 = "Group Task";
-const GR_TITLE3 = "All Classes";
+const GROUP = ["Project A", "Group Task", "All Classes"];
+const STUDENT = ["Harry Potter", "Hermione Granger", "Ron Wesley", "Draco Malfoy", "Tom Riddle"];
+const TEACHER = ["Prof. Severus Snape", "Prof. Dumbledore",];
+const CONTACT = [...STUDENT, ...TEACHER,];
 
 export default class App extends Component {
   grContacts = {
-    [GR_TITLE1]: [
-      <ContactItem key={uid()} type={ContactItem.TYPE.TEACHER} title="Academic A"/>,
-      <ContactItem key={uid()} type={ContactItem.TYPE.TEACHER} title="Doctor B"/>,
-      <ContactItem key={uid()} title="Student Helen"/>,
-      <ContactItem key={uid()} title="Student Nick"/>,
+    [GROUP[0]]: [
+      <ContactItem key={uid()} type={ContactItem.TYPE.TEACHER} title={TEACHER[0]}/>,
+      <ContactItem key={uid()} type={ContactItem.TYPE.TEACHER} title={TEACHER[1]}/>,
+      <ContactItem key={uid()} title={STUDENT[0]}/>,
+      <ContactItem key={uid()} title={STUDENT[1]}/>,
     ],
-    [GR_TITLE2]: [
-      <ContactItem key={uid()} title="Student John"/>,
-      <ContactItem key={uid()} title="Student Malcolm"/>,
-      <ContactItem key={uid()} title="Student Thomas"/>,
+    [GROUP[1]]: [
+      <ContactItem key={uid()} title={STUDENT[1]}/>,
+      <ContactItem key={uid()} title={STUDENT[2]}/>,
+      <ContactItem key={uid()} title={STUDENT[3]}/>,
     ],
-    [GR_TITLE3]: [
-      <ContactItem key={uid()} title="Student Helen"/>,
-      <ContactItem key={uid()} title="Student Nick"/>,
-      <ContactItem key={uid()} title="Student John"/>,
-      <ContactItem key={uid()} title="Student Malcolm"/>,
-      <ContactItem key={uid()} title="Student Thomas"/>,
-    ],
+    [GROUP[2]]: STUDENT.map(name => <ContactItem key={uid()} title={name}/>),
   };
 
   state = {
-    groups: [GR_TITLE1, GR_TITLE2, GR_TITLE3],
-    selectedGroup: GR_TITLE1,
+    groups: [GROUP[0], GROUP[1], GROUP[2]],
+    selectedGroup: GROUP[0],
+    activeChats: [],
   };
 
   onGroupClick(title) {
@@ -55,14 +52,17 @@ export default class App extends Component {
     const panelStyle = {maxHeight: '50%'};
 
     return (
-      <PanelContainer>
-        <Panel title='Groups' style={panelStyle} key="Groups">
-          {this.renderGroups()}
-        </Panel>,
-        <Panel title='Contacts' style={panelStyle} key="Contacts">
-          {this.renderContacts()}
-        </Panel>
-      </PanelContainer>
+      <div>
+        <PanelContainer>
+          <Panel title='Groups' style={panelStyle} key="Groups">
+            {this.renderGroups()}
+          </Panel>,
+          <Panel title='Contacts' style={panelStyle} key="Contacts">
+            {this.renderContacts()}
+          </Panel>
+        </PanelContainer>
+        <MessageWindow/>
+      </div>
     );
   }
 }

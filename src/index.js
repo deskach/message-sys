@@ -13,4 +13,10 @@ import App from "./chat/chat-main";
 //   </Provider>
 //   , document.querySelector('.container'));
 
-ReactDOM.render(<App />, document.querySelector('.container'));
+ReactDOM.render((
+    <div>
+      <p>Some content goes here</p>
+      <App />
+    </div>
+  ),
+  document.querySelector('.container'));
