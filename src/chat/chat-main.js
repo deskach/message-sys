@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import PanelContainer from "./chat/panel-container";
-import Panel from "./chat/panel";
-import ContactItem from "./chat/panel-items/contact";
-import GroupItem from "./chat/panel-items/group";
+import PanelContainer from "./panel-container";
+import Panel from "./panel";
+import ContactItem from "./panel-items/contact";
+import GroupItem from "./panel-items/group";
 import {uid} from "./util";
 
 // TODO: Replace this mock and all related code with the database values
