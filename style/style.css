@@ -36,8 +36,8 @@
     padding: 10px;
     /*float: left;*/
     position: fixed;
-    left: 10px;
-    top: 10px;
+    /*left: 10px;*/
+    /*top: 10px;*/
 }
 
 /* end of react-draggable */
