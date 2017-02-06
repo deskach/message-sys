@@ -15,17 +15,32 @@
     cursor: ew-resize;
 }
 
-.react-draggable strong {
+.react-draggable header {
     background-color: rgb(251, 182, 34);
     /*border: 1px solid #999;*/
     /*border-radius: 3px;*/
     display: block;
     margin-bottom: 10px;
-    padding: 3px 10px 3px 10px;
+    padding: 10px;
     text-align: left;
     font-size: 21px;
     font-family: "Bitter Bold";
     color: #fff;
+}
+
+.react-draggable footer {
+    background-color: rgb(251, 182, 34);
+    /*border: 1px solid #999;*/
+    /*border-radius: 3px;*/
+    display: block;
+    text-align: left;
+    font-size: 21px;
+    font-family: "Bitter Bold";
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
 }
 
 .box {

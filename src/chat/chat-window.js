@@ -14,12 +14,14 @@ export default class MessageWindow extends Component {
     const dragHandlers = {};
 
     return (
-      <Draggable handle="strong" {...dragHandlers}>
+      <Draggable handle="header" {...dragHandlers}>
         <div className="box no-cursor" style={this.props.style}>
-          <strong className="cursor">
-            <div>{this.props.title}</div>
-          </strong>
+          <header className="cursor">
+            <strong>{this.props.title}</strong>
+          </header>
           <div>You must click my handle to drag me</div>
+          <footer>
+          </footer>
         </div>
       </Draggable>
     );
