@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 //import { Provider } from 'react-redux';
 //import { createStore, applyMiddleware } from 'redux';
-import App from "./app";
+import App from "./chat";
 //import reducers from './reducers';
 
 //const createStoreWithMiddleware = applyMiddleware()(createStore);
