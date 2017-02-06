@@ -15,11 +15,21 @@ export default class App extends Component {
     [GR_TITLE1]: [
       <ContactItem key={uid()} type={ContactItem.TYPE.TEACHER} title="Academic A"/>,
       <ContactItem key={uid()} type={ContactItem.TYPE.TEACHER} title="Doctor B"/>,
-      <ContactItem key={uid()} title="Student 1"/>,
-      <ContactItem key={uid()} title="Student 2"/>,
+      <ContactItem key={uid()} title="Student Helen"/>,
+      <ContactItem key={uid()} title="Student Nick"/>,
     ],
-    [GR_TITLE2]: [],
-    [GR_TITLE3]: [],
+    [GR_TITLE2]: [
+      <ContactItem key={uid()} title="Student John"/>,
+      <ContactItem key={uid()} title="Student Malcolm"/>,
+      <ContactItem key={uid()} title="Student Thomas"/>,
+    ],
+    [GR_TITLE3]: [
+      <ContactItem key={uid()} title="Student Helen"/>,
+      <ContactItem key={uid()} title="Student Nick"/>,
+      <ContactItem key={uid()} title="Student John"/>,
+      <ContactItem key={uid()} title="Student Malcolm"/>,
+      <ContactItem key={uid()} title="Student Thomas"/>,
+    ],
   };
 
   state = {
@@ -28,11 +38,13 @@ export default class App extends Component {
   };
 
   onGroupClick(title) {
-
+    this.setState({selectedGroup: title});
   }
 
   renderGroups() {
-    return this.state.groups.map(title => <GroupItem key={uid()} title={title} onClick={_ => _}/>)
+    return this.state.groups.map(
+      title => <GroupItem key={uid()} title={title} onClick={this.onGroupClick.bind(this, title)}/>
+    );
   }
 
   renderContacts() {
