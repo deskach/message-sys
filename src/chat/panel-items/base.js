@@ -1,14 +1,12 @@
 import React, {Component, PropTypes} from "react";
 
+/*Abstract base class for group and contact panel items*/
 export default class BaseItem extends Component {
   static propTypes = {
     msgCount: PropTypes.number
   };
-
-  render() {
-    return (
-      <div>{this.props.children}</div>
-    )
-  }
+  static defaultProps = {
+    msgCount: 0,
+  };
 }
 

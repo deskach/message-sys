@@ -7,7 +7,7 @@ export default class PanelContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="panel-container">
         {this.props.children}
       </div>
     );

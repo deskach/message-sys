@@ -13,9 +13,9 @@ export default class Panel extends Component {
 
   render() {
     return (
-      <div style={this.props.style}>
-        <div> {this.props.title} </div>
-        <div> {this.props.children} </div>
+      <div style={this.props.style} className="panel">
+        <div className="panel-title"> {this.props.title} </div>
+        <div className="panel-content"> {this.props.children} </div>
       </div>
     );
   }

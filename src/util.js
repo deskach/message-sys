@@ -1,5 +1,5 @@
-var cntr = 0;
-
 export function uid() {
-  return cntr++;
+  return uid.prototype.cntr++;
 }
+
+uid.prototype.cntr = 0;

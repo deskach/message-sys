@@ -1,0 +1,42 @@
+.panel-container {
+    height: 840px;
+    width: 240px;
+    border: 1px solid rgb(251, 182, 34);
+    position: absolute;
+    left: 500px;
+    top: 20px;
+}
+
+.panel {
+    /*margin: 5px;*/
+}
+
+.panel-title {
+    background-color: rgb(251, 182, 34);
+    font-weight: bold;
+    padding: 10px;
+}
+
+.panel-item {
+    padding: 10px;
+    font-size: 17px;
+    color: rgb(36, 36, 36);
+    cursor: pointer;
+}
+
+.panel-item-group {
+}
+
+.panel-item-contact {
+}
+
+.panel-item-student:hover {
+    background-color: rgb(254, 240, 211);
+}
+
+.panel-item-teacher:hover {
+    background-color: rgb(253, 211, 122);
+}
+
+/*.panel-item:hover {*/
+/*}*/
