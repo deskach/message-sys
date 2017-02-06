@@ -22,6 +22,7 @@ export default class MessageWindow extends Component {
           <div id="content"></div>
           <footer>
             <input type="text" placeholder="Type here..."/>
+            <span className="pointer send">&#x27a4;</span>
           </footer>
         </div>
       </Draggable>

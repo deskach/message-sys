@@ -1,6 +1,10 @@
-/* react-draggable section https://github.com/mzabriskie/react-draggable/blob/master/example/index.html */
-.react-draggable, .cursor {
+/* react-draggable definitions */
+.cursor {
     cursor: move;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 .no-cursor {
@@ -41,6 +45,10 @@
     bottom: 0;
     height: 50px;
     width: 100%;
+}
+
+.react-draggable footer .send {
+    font-size: 24px;
 }
 
 .react-draggable footer input {
