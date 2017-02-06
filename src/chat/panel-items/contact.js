@@ -20,7 +20,7 @@ export default class Contact extends BaseItem {
     const typeStyle = type2style[this.props.type];
 
     return (
-      <div className={"panel-item panel-item-contact " + typeStyle}>{this.props.children}</div>
+      <div className={"panel-item panel-item-contact " + typeStyle}>{this.props.title}</div>
     )
   }
 }
