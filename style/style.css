@@ -16,28 +16,33 @@
 }
 
 .react-draggable strong {
-    background: #ddd;
-    border: 1px solid #999;
-    border-radius: 3px;
+    background-color: rgb(251, 182, 34);
+    /*border: 1px solid #999;*/
+    /*border-radius: 3px;*/
     display: block;
     margin-bottom: 10px;
-    padding: 3px 5px;
-    text-align: center;
+    padding: 3px 10px 3px 10px;
+    text-align: left;
+    font-size: 21px;
+    font-family: "Bitter Bold";
+    color: #fff;
 }
 
 .box {
     /*box-sizing: border-box;*/
     background: #fff;
-    border: 1px solid #999;
-    border-radius: 3px;
-    width: 180px;
-    height: 180px;
-    margin: 10px;
-    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(251, 182, 34);
+    /*border-radius: 3px;*/
+    width: 368px;
+    height: 450px;
+    /*margin: 10px;*/
+    /*padding: 10px;*/
     /*float: left;*/
     position: absolute;
-    /*left: 10px;*/
-    /*top: 10px;*/
+    left: 10px;
+    top: 10px;
 }
 
 /* end of react-draggable */
