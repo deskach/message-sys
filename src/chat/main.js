@@ -7,7 +7,7 @@ import {uid} from "./util";
 import MessageWindow from "./message-window";
 
 // TODO: Replace this mock and all related code with the database values
-const GROUP = ["Project A", "Group Task", "All Classes"];
+const GROUP = ["Project A", "Group Task", "All Classes", "Empty"];
 const STUDENT = ["Harry Potter", "Hermione Granger", "Ron Wesley", "Draco Malfoy", "Tom Riddle"];
 const TEACHER = ["Dr. Severus Snape", "Prof. Dumbledore",];
 const ALL = 'Everyone...';
@@ -20,7 +20,7 @@ export default class App extends Component {
   };
 
   state = {
-    groups: [GROUP[0], GROUP[1], GROUP[2]],
+    groups: [...GROUP],
     selectedGroup: GROUP[0],
     activeChats: [STUDENT[0]],
     messages: {
@@ -45,8 +45,9 @@ export default class App extends Component {
     );
   }
 
-  renderContacts() {
-    const contacts = [ALL, ...this.grContacts[this.state.selectedGroup]];
+  renderContacts(contactList) {
+    contactList = contactList || [];
+    const contacts = contactList.length ? [ALL, ...this.grContacts[this.state.selectedGroup]] : [];
 
     return contacts.map(name => {
       let type = ContactItem.TYPE.STUDENT;
@@ -123,7 +124,7 @@ export default class App extends Component {
             {this.renderGroups()}
           </Panel>,
           <Panel title='Contacts' style={panelStyle} key="Contacts">
-            {this.renderContacts()}
+            {this.renderContacts(this.grContacts[this.state.selectedGroup])}
           </Panel>
         </PanelContainer>
         {this.renderMessageWindows()}
