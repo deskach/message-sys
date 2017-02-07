@@ -77,6 +77,7 @@ export default class App extends Component {
       <MessageWindow title={name}
                      key={name}
                      onAddNewMessage={(key, text) => this.addNewMessage(key, text)}
+                     onClose={this.toggleChatWindow.bind(this, name)}
                      style={{left: 10, top: 10}}>
         {this.state.messages[name]}
       </MessageWindow>

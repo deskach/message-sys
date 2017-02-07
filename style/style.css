@@ -32,6 +32,13 @@
     height: 25px;
 }
 
+.react-draggable header .chat-window-close {
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 18px;
+}
+
 .react-draggable footer {
     background-color: rgb(251, 182, 34);
     /*border: 1px solid #999;*/

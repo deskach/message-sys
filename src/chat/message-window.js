@@ -9,6 +9,7 @@ export default class MessageWindow extends Component {
     style: PropTypes.object,
     children: PropTypes.array,
     onAddNewMessage: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
   };
   static defaultProps = {
     style: {},
@@ -37,6 +38,7 @@ export default class MessageWindow extends Component {
         <div className="box no-cursor" style={this.props.style}>
           <header className="cursor">
             <strong>{this.props.title}</strong>
+            <span className="chat-window-close" onClick={this.props.onClose}>&#x2716;</span>
           </header>
           <div id="content">
             {this.renderMessages()}
