@@ -170,6 +170,10 @@
     padding: 5px;
 }
 
+.panel-item-group-selected {
+    background-color: rgb(251, 182, 34);
+}
+
 .panel-item-contact {
     padding: 10px;
 }

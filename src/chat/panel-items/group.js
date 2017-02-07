@@ -4,11 +4,21 @@ import BaseItem from "./base";
 export default class Group extends BaseItem {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
+    selected: PropTypes.bool,
+  };
+  static defaultProps = {
+    selected: false,
   };
 
   render() {
+    let classNames = "panel-item panel-item-group ";
+
+    if (this.props.selected) {
+      classNames += ' panel-item-group-selected';
+    }
+
     return (
-      <div className="panel-item panel-item-group" onClick={this.props.onClick}>
+      <div className={classNames} onClick={this.props.onClick}>
         {this.props.title}
       </div>
     )

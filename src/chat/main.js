@@ -10,7 +10,7 @@ import MessageWindow from "./message-window";
 const GROUP = ["Project A", "Group Task", "All Classes"];
 const STUDENT = ["Harry Potter", "Hermione Granger", "Ron Wesley", "Draco Malfoy", "Tom Riddle"];
 const TEACHER = ["Dr. Severus Snape", "Prof. Dumbledore",];
-const ALL = 'Everybody';
+const ALL = 'Everyone...';
 
 export default class App extends Component {
   grContacts = {
@@ -38,7 +38,10 @@ export default class App extends Component {
 
   renderGroups() {
     return this.state.groups.map(
-      title => <GroupItem key={uid()} title={title} onClick={this.onGroupClick.bind(this, title)}/>
+      title => <GroupItem key={uid()}
+                          title={title}
+                          selected={this.state.selectedGroup === title}
+                          onClick={this.onGroupClick.bind(this, title)}/>
     );
   }
 
