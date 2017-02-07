@@ -29,6 +29,7 @@ export default class App extends Component {
         "Nulla facilisi. Nunc volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut sit amet orci vel mauris blandit vehicula. Nullam quis enim. Integer dignissim viverra velit. Curabitur in odio. In hac habitasse platea dictumst. Ut consequat, tellus eu volutpat varius, justo orci elementum dolor, sed imperdiet nulla tellus ut diam. Vestibulum ipsum ante, malesuada quis, tempus ac, placerat sit amet, elit.",
       ]
     },
+    editingContacts: false,
   };
 
 
@@ -116,6 +117,27 @@ export default class App extends Component {
 
   render() {
     const panelStyle = {maxHeight: '50%'};
+    let contactControls = [
+      <span className="panel-control right"
+            onClick={_ => this.setState({editingContacts: true})}>
+        &#x270e;
+      </span>
+    ];
+
+    if (this.state.editingContacts) {
+      contactControls = [
+        <span className="panel-control right"
+              style={{color: 'green'}}
+              onClick={_ => this.setState({editingContacts: false})}>
+          &#x2714;
+        </span>,
+        <span className="panel-control right"
+              style={{color: 'red'}}
+              onClick={_ => this.setState({editingContacts: false})}>
+          &#x2718;
+        </span>,
+      ]
+    }
 
     return (
       <div>
@@ -123,7 +145,7 @@ export default class App extends Component {
           <Panel title='Groups' style={panelStyle} key="Groups">
             {this.renderGroups()}
           </Panel>,
-          <Panel title='Contacts' style={panelStyle} key="Contacts">
+          <Panel title='Contacts' style={panelStyle} key="Contacts" controls={contactControls}>
             {this.renderContacts(this.grContacts[this.state.selectedGroup])}
           </Panel>
         </PanelContainer>

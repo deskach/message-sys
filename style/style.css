@@ -156,6 +156,15 @@
     padding: 10px;
 }
 
+.panel-control {
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: -6px;
+    padding-left: 10px;
+    /*color: #fff;*/
+}
+
 .panel-item {
     font-size: 17px;
     color: rgb(36, 36, 36);
