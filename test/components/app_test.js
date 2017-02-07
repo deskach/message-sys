@@ -1,5 +1,5 @@
 import {renderComponent, expect} from "../test_helper";
-import App from "../../src/chat/chat-main";
+import App from "../../src/chat/main";
 
 describe('App' , () => {
   let component;

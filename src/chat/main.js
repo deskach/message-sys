@@ -4,7 +4,7 @@ import Panel from "./panel";
 import ContactItem from "./panel-items/contact";
 import GroupItem from "./panel-items/group";
 import {uid} from "./util";
-import ChatWindow from "./chat-window";
+import ChatWindow from "./message-window";
 
 // TODO: Replace this mock and all related code with the database values
 const GROUP = ["Project A", "Group Task", "All Classes"];
@@ -22,6 +22,13 @@ export default class App extends Component {
     groups: [GROUP[0], GROUP[1], GROUP[2]],
     selectedGroup: GROUP[0],
     activeChats: [STUDENT[0]],
+  };
+
+  messages = {
+    [STUDENT[0]]: [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at ante. Mauris eleifend, quam a vulputate dictum, massa quam dapibus leo, eget vulputate orci purus ut lorem. In fringilla mi in ligula. Pellentesque aliquam quam vel dolor. Nunc adipiscing. Sed quam odio, tempus ac, aliquam molestie, varius ac, tellus. Vestibulum ut nulla aliquam risus rutrum interdum. Pellentesque lorem. Curabitur sit amet erat quis risus feugiat viverra. Pellentesque augue justo, sagittis et, lacinia at, venenatis non, arcu. Nunc nec libero. In cursus dictum risus. Etiam tristique nisl a nulla. Ut a orci. Curabitur dolor nunc, egestas at, accumsan at, malesuada nec, magna.",
+      "Nulla facilisi. Nunc volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut sit amet orci vel mauris blandit vehicula. Nullam quis enim. Integer dignissim viverra velit. Curabitur in odio. In hac habitasse platea dictumst. Ut consequat, tellus eu volutpat varius, justo orci elementum dolor, sed imperdiet nulla tellus ut diam. Vestibulum ipsum ante, malesuada quis, tempus ac, placerat sit amet, elit.",
+    ]
   };
 
   onGroupClick(title) {
@@ -60,7 +67,9 @@ export default class App extends Component {
 
   renderChatWindows() {
     return this.state.activeChats.map(name => (
-      <ChatWindow title={name} key={name} style={{left: 10, top: 10}}/>
+      <ChatWindow title={name} key={name} style={{left: 10, top: 10}}>
+        {this.messages[name]}
+      </ChatWindow>
     ));
   }
 
