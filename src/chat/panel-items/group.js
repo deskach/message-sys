@@ -3,11 +3,10 @@ import BaseItem from "./base";
 
 export default class Group extends BaseItem {
   static propTypes = {
-    onClick: PropTypes.func.isRequired,
-    selected: PropTypes.bool,
+    ...BaseItem.propTypes,
   };
   static defaultProps = {
-    selected: false,
+    ...BaseItem.defaultProps,
   };
 
   render() {

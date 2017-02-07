@@ -51,6 +51,7 @@ export default class App extends Component {
     return contacts.map(name => {
       let type = ContactItem.TYPE.STUDENT;
       let msgWindowTitle = name;
+      const selected = (this.state.activeChats.indexOf(name) >= 0) ? true : undefined;
 
       if (TEACHER.indexOf(name) >= 0) {
         type = ContactItem.TYPE.TEACHER;
@@ -61,6 +62,7 @@ export default class App extends Component {
 
       return <ContactItem type={type}
                           key={name}
+                          selected={selected}
                           onClick={this.toggleMessageWindow.bind(this, msgWindowTitle)}
                           title={name}/>
     });
