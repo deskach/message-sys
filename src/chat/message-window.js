@@ -1,12 +1,14 @@
 import React, {Component, PropTypes} from "react";
 import Draggable, {DraggableCore} from "react-draggable"; // Both at the same time
 import Message from "./message";
+import {uid} from "./util";
 
 export default class MessageWindow extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     style: PropTypes.object,
-    children: PropTypes.arrayOf(PropTypes.strong),
+    children: PropTypes.array,
+    onAddNewMessage: PropTypes.func.isRequired,
   };
   static defaultProps = {
     style: {},
@@ -14,7 +16,17 @@ export default class MessageWindow extends Component {
   };
 
   renderMessages() {
-    return this.props.children.map(text => <Message>{text}</Message>);
+    return this.props.children.map(text => <Message key={uid()}>{text}</Message>);
+  }
+
+  addNewMessage(e) {
+    e.preventDefault();
+    const msg = this.msgInput.value.trim();
+
+    if (msg) {
+      this.props.onAddNewMessage(this.props.title, msg);
+      this.msgInput.value = "";
+    }
   }
 
   render() {
@@ -30,8 +42,8 @@ export default class MessageWindow extends Component {
             {this.renderMessages()}
           </div>
           <footer>
-            <input type="text" placeholder="Type here..."/>
-            <span className="pointer send">&#x27a4;</span>
+            <input type="text" placeholder="Type here..." ref={r => this.msgInput = r}/>
+            <span className="pointer send" onClick={e => this.addNewMessage(e)}>&#x27a4;</span>
           </footer>
         </div>
       </Draggable>
