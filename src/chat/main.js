@@ -51,13 +51,17 @@ export default class App extends Component {
     return contacts.map(name => {
       let type = ContactItem.TYPE.STUDENT;
       let msgWindowTitle = name;
-      const selected = (this.state.activeChats.indexOf(name) >= 0) ? true : undefined;
+      let selected = (this.state.activeChats.indexOf(name) >= 0) ? true : undefined;
 
       if (TEACHER.indexOf(name) >= 0) {
         type = ContactItem.TYPE.TEACHER;
       } else if (name === ALL) {
         type = ContactItem.TYPE.GROUP;
         msgWindowTitle = this.state.selectedGroup;
+
+        if (this.state.activeChats.indexOf(msgWindowTitle) >= 0) {
+          selected = true;
+        }
       }
 
       return <ContactItem type={type}
