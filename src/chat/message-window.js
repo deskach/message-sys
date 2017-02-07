@@ -44,7 +44,10 @@ export default class MessageWindow extends Component {
             {this.renderMessages()}
           </div>
           <footer>
-            <input type="text" placeholder="Type here..." ref={r => this.msgInput = r}/>
+            <input type="text"
+                   placeholder="Type here..."
+                   onKeyDown={e => e.keyCode === 13 ? this.addNewMessage(e) : null}
+                   ref={r => this.msgInput = r}/>
             <span className="pointer send" onClick={e => this.addNewMessage(e)}>&#x27a4;</span>
           </footer>
         </div>
