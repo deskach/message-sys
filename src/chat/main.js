@@ -115,17 +115,9 @@ export default class App extends Component {
     });
   }
 
-  render() {
-    const panelStyle = {maxHeight: '50%'};
-    let contactControls = [
-      <span className="panel-control right"
-            onClick={_ => this.setState({editingContacts: true})}>
-        &#x270e;
-      </span>
-    ];
-
+  get contactControls() {
     if (this.state.editingContacts) {
-      contactControls = [
+      return [
         <span className="panel-control right"
               style={{color: 'green'}}
               onClick={_ => this.setState({editingContacts: false})}>
@@ -139,13 +131,24 @@ export default class App extends Component {
       ]
     }
 
+    return [
+      <span className="panel-control right"
+            onClick={_ => this.setState({editingContacts: true})}>
+        &#x270e;
+      </span>
+    ];
+  }
+
+  render() {
+    const panelStyle = {maxHeight: '50%'};
+
     return (
       <div>
         <PanelContainer>
           <Panel title='Groups' style={panelStyle} key="Groups">
             {this.renderGroups()}
           </Panel>,
-          <Panel title='Contacts' style={panelStyle} key="Contacts" controls={contactControls}>
+          <Panel title='Contacts' style={panelStyle} key="Contacts" controls={this.contactControls}>
             {this.renderContacts(this.grContacts[this.state.selectedGroup])}
           </Panel>
         </PanelContainer>
