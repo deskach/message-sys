@@ -32,11 +32,23 @@
     height: 25px;
 }
 
-.react-draggable header .chat-window-close {
-    float: right;
+.react-draggable header .chat-window-icon {
     font-weight: bold;
     cursor: pointer;
     font-size: 18px;
+    color: #fff;
+}
+
+.react-draggable header .chat-window-title {
+    margin-left: 5px;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
 }
 
 .react-draggable footer {

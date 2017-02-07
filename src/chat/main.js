@@ -10,6 +10,7 @@ import MessageWindow from "./message-window";
 const GROUP = ["Project A", "Group Task", "All Classes"];
 const STUDENT = ["Harry Potter", "Hermione Granger", "Ron Wesley", "Draco Malfoy", "Tom Riddle"];
 const TEACHER = ["Dr. Severus Snape", "Prof. Dumbledore",];
+const ALL = 'Everybody';
 
 export default class App extends Component {
   grContacts = {
@@ -42,17 +43,27 @@ export default class App extends Component {
   }
 
   renderContacts() {
-    return this.grContacts[this.state.selectedGroup].map(name => {
-      const type = TEACHER.indexOf(name) >= 0 ? ContactItem.TYPE.TEACHER : ContactItem.TYPE.STUDENT;
+    const contacts = [ALL, ...this.grContacts[this.state.selectedGroup]];
+
+    return contacts.map(name => {
+      let type = ContactItem.TYPE.STUDENT;
+      let msgWindowTitle = name;
+
+      if (TEACHER.indexOf(name) >= 0) {
+        type = ContactItem.TYPE.TEACHER;
+      } else if (name === ALL) {
+        type = ContactItem.TYPE.GROUP;
+        msgWindowTitle = this.state.selectedGroup;
+      }
 
       return <ContactItem type={type}
                           key={name}
-                          onClick={this.toggleChatWindow.bind(this, name)}
+                          onClick={this.toggleMessageWindow.bind(this, msgWindowTitle)}
                           title={name}/>
     });
   }
 
-  toggleChatWindow(title) {
+  toggleMessageWindow(title) {
     let activeChats = this.state.activeChats;
     const n = activeChats.indexOf(title);
 
@@ -72,16 +83,25 @@ export default class App extends Component {
     this.setState({messages: newMessages});
   }
 
-  renderChatWindows() {
-    return this.state.activeChats.map(name => (
-      <MessageWindow title={name}
-                     key={name}
-                     onAddNewMessage={(key, text) => this.addNewMessage(key, text)}
-                     onClose={this.toggleChatWindow.bind(this, name)}
-                     style={{left: 10, top: 10}}>
-        {this.state.messages[name]}
-      </MessageWindow>
-    ));
+  renderMessageWindows() {
+    return this.state.activeChats.map(name => {
+      let icon = undefined;
+
+      if (GROUP.indexOf(name) >= 0) {
+        icon = <span className="chat-window-icon left">&#x1F465;</span>;
+      }
+
+      return (
+        <MessageWindow title={name}
+                       key={name}
+                       onAddNewMessage={(key, text) => this.addNewMessage(key, text)}
+                       icon={icon}
+                       onClose={this.toggleMessageWindow.bind(this, name)}
+                       style={{left: 10, top: 10}}>
+          {this.state.messages[name]}
+        </MessageWindow>
+      )
+    });
   }
 
   render() {
@@ -97,7 +117,7 @@ export default class App extends Component {
             {this.renderContacts()}
           </Panel>
         </PanelContainer>
-        {this.renderChatWindows()}
+        {this.renderMessageWindows()}
       </div>
     );
   }

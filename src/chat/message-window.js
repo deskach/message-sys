@@ -10,10 +10,12 @@ export default class MessageWindow extends Component {
     children: PropTypes.array,
     onAddNewMessage: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
+    icon: PropTypes.any,
   };
   static defaultProps = {
     style: {},
     children: [],
+    icon: <span className="chat-window-icon left">&#x1F464;</span>,
   };
 
   renderMessages() {
@@ -45,8 +47,9 @@ export default class MessageWindow extends Component {
       <Draggable handle="header" {...dragHandlers}>
         <div className="box no-cursor" style={this.props.style}>
           <header className="cursor">
-            <strong>{this.props.title}</strong>
-            <span className="chat-window-close" onClick={this.props.onClose}>&#x2716;</span>
+            <span className="chat-window-icon left">{this.props.icon}</span>
+            <strong className="chat-window-title">{this.props.title}</strong>
+            <span className="chat-window-icon right" onClick={this.props.onClose}>&#x2716;</span>
           </header>
           <div id="content" ref={r => this.contentEl = r}>
             {this.renderMessages()}
