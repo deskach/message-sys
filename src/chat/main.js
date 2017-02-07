@@ -46,9 +46,9 @@ export default class App extends Component {
     );
   }
 
-  renderContacts(contactList) {
-    contactList = contactList || [];
-    const contacts = contactList.length ? [ALL, ...this.grContacts[this.state.selectedGroup]] : [];
+  renderContacts() {
+    let contacts = this.grContacts[this.state.selectedGroup];
+    contacts = contacts && contacts.length ? [ALL, ...contacts] : [];
 
     return contacts.map(name => {
       let type = ContactItem.TYPE.STUDENT;
@@ -72,6 +72,10 @@ export default class App extends Component {
                           onClick={this.toggleMessageWindow.bind(this, msgWindowTitle)}
                           title={name}/>
     });
+  }
+
+  renderContacts4Editing() {
+
   }
 
   toggleMessageWindow(title) {
@@ -149,7 +153,10 @@ export default class App extends Component {
             {this.renderGroups()}
           </Panel>,
           <Panel title='Contacts' style={panelStyle} key="Contacts" controls={this.contactControls}>
-            {this.renderContacts(this.grContacts[this.state.selectedGroup])}
+            { this.state.editingContacts ?
+              this.renderContacts4Editing() :
+              this.renderContacts()
+            }
           </Panel>
         </PanelContainer>
         {this.renderMessageWindows()}
