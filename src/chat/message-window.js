@@ -30,6 +30,14 @@ export default class MessageWindow extends Component {
     }
   }
 
+  componentDidMount() {
+    this.contentEl.scrollTop = Number.MAX_SAFE_INTEGER;
+  }
+
+  componentDidUpdate() {
+    this.contentEl.scrollTop = Number.MAX_SAFE_INTEGER;
+  }
+
   render() {
     const dragHandlers = {};
 
@@ -40,7 +48,7 @@ export default class MessageWindow extends Component {
             <strong>{this.props.title}</strong>
             <span className="chat-window-close" onClick={this.props.onClose}>&#x2716;</span>
           </header>
-          <div id="content">
+          <div id="content" ref={r => this.contentEl = r}>
             {this.renderMessages()}
           </div>
           <footer>
