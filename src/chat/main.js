@@ -5,6 +5,7 @@ import ContactItem from "./panel-items/contact";
 import GroupItem from "./panel-items/group";
 import {uid} from "./util";
 import MessageWindow from "./message-window";
+import constants from "./constants";
 
 // TODO: Replace this mock and all related code with the database values
 // TODO: Introduce a notion of id for a GROUP, a STUDENT etc and rely on it instead of the name
@@ -159,7 +160,7 @@ export default class App extends Component {
       let icon = undefined;
 
       if (GROUP.indexOf(name) >= 0) {
-        icon = <span className="chat-window-icon left">&#x1F465;</span>;
+        icon = <span className="chat-window-icon left">{constants.PERSONS}</span>;
       }
 
       return (
@@ -233,14 +234,14 @@ export default class App extends Component {
                 this.cancelContactsEditing();
               }}
         >
-          &#x2714;
+          {constants.CHECK_MARKER}
         </span>,
         <span className="panel-control right"
               key={uid()}
               style={{color: 'red'}}
               onClick={_ => this.cancelContactsEditing()}
         >
-          &#x2718;
+          {constants.DISCARD_MARKER}
         </span>,
       ]
     } else if (this.state.selectedGroup) {
@@ -251,8 +252,8 @@ export default class App extends Component {
                 isEditingContacts: true,
                 selectedContacts: [...(this.grContacts[this.state.selectedGroup] || [])]
               })}>
-        &#x270e;
-      </span>
+          {constants.PENCIL}
+        </span>
       ];
     }
 
@@ -272,14 +273,14 @@ export default class App extends Component {
                 this.cancelGroupEditing();
               }}
         >
-          &#x2714;
+          {constants.CHECK_MARKER}
         </span>,
         <span className="panel-control right"
               style={{color: 'red'}}
               key={uid()}
               onClick={_ => this.cancelGroupEditing()}
         >
-          &#x2718;
+          {constants.DISCARD_MARKER}
         </span>,
       ]
     }
@@ -290,7 +291,7 @@ export default class App extends Component {
             style={{marginTop: '-3px'}}
             onClick={_ => this.addNewGroup()}
       >
-        &#x2295;
+        {constants.PLUS}
       </span>,
     ];
 
@@ -301,13 +302,13 @@ export default class App extends Component {
               key={uid()}
               onClick={_ => this.setState({isEditingGroup: true})}
         >
-          &#x270e;
+          {constants.PENCIL}
         </span>,
         <span className="panel-control right"
               key={uid()}
               onClick={_ => this.deleteSelectedGroup()}
         >
-          &#x267B;
+          {constants.RECYCLE}
         </span>,
       ];
     }

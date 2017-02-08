@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from "react";
 import Draggable, {DraggableCore} from "react-draggable"; // Both at the same time
 import Message from "./message";
 import {uid} from "./util";
+import constants from "./constants";
 
 export default class MessageWindow extends Component {
   static propTypes = {
@@ -15,7 +16,7 @@ export default class MessageWindow extends Component {
   static defaultProps = {
     style: {},
     children: [],
-    icon: <span className="chat-window-icon left">&#x1F464;</span>,
+    icon: <span className="chat-window-icon left">{constants.PERSON}</span>,
   };
 
   renderMessages() {
@@ -49,7 +50,7 @@ export default class MessageWindow extends Component {
           <header className="cursor">
             <span className="chat-window-icon left">{this.props.icon}</span>
             <strong className="chat-window-title">{this.props.title}</strong>
-            <span className="chat-window-icon right" onClick={this.props.onClose}>&#x2716;</span>
+            <span className="chat-window-icon right" onClick={this.props.onClose}>{constants.CLOSE}</span>
           </header>
           <div id="content" ref={r => this.contentEl = r}>
             {this.renderMessages()}
@@ -59,7 +60,7 @@ export default class MessageWindow extends Component {
                    placeholder="Type here..."
                    onKeyDown={e => e.keyCode === 13 ? this.addNewMessage(e) : null}
                    ref={r => this.msgInput = r}/>
-            <span className="pointer send" onClick={e => this.addNewMessage(e)}>&#x27a4;</span>
+            <span className="pointer send" onClick={e => this.addNewMessage(e)}>{constants.SEND}</span>
           </footer>
         </div>
       </Draggable>
