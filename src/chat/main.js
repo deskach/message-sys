@@ -49,17 +49,27 @@ export default class App extends Component {
     this.setState({selectedGroup: title});
   }
 
+  //TODO: refactor this function to be part of the Group panel-item
+  onGroupNameChange(e) {
+    if (e.keyCode === 13) {
+      this.renameSelectedGroup(this.groupBeingEdited.contentEl.innerText);
+      this.cancelGroupEditing();
+    }
+  }
+
   renderGroups() {
     return this.state.groups.map(
       title => {
         const contentEditable = this.state.selectedGroup === title && this.state.isEditingGroup;
         const onClick = contentEditable ? undefined : this.onGroupClick.bind(this, title);
+        const onKeyDown = contentEditable ? this.onGroupNameChange.bind(this) : undefined;
 
         return <GroupItem key={uid()}
                           title={title}
                           ref={contentEditable ? r => this.groupBeingEdited = r : undefined}
                           selected={this.state.selectedGroup === title}
                           contentEditable={contentEditable}
+                          onKeyDown={onKeyDown}
                           onClick={onClick}/>
       }
     );

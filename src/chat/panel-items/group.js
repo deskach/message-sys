@@ -5,6 +5,7 @@ export default class Group extends BaseItem {
   static propTypes = {
     ...BaseItem.propTypes,
     contentEditable: PropTypes.bool,
+    onKeyDown: PropTypes.func,
   };
   static defaultProps = {
     ...BaseItem.defaultProps,
@@ -37,6 +38,7 @@ export default class Group extends BaseItem {
       <div className={classNames}
            style={style}
            onClick={this.props.onClick}
+           onKeyDown={this.props.onKeyDown}
            ref={r => this.contentEl = r}
            contentEditable={this.props.contentEditable}>
         {this.props.title}
