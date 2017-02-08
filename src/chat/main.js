@@ -7,6 +7,7 @@ import {uid} from "./util";
 import MessageWindow from "./message-window";
 
 // TODO: Replace this mock and all related code with the database values
+// TODO: Introduce a notion of id for a GROUP, a STUDENT etc and rely on it instead of the name
 const GROUP = ["Project A", "Group Task", "All Classes", "Empty"];
 const STUDENT = ["Harry Potter", "Hermione Granger", "Ron Wesley", "Draco Malfoy", "Tom Riddle"];
 const TEACHER = ["Dr. Severus Snape", "Prof. Dumbledore",];
@@ -30,6 +31,7 @@ export default class App extends Component {
       ]
     },
     isEditingContacts: false,
+    isEditingGroup: false,
     selectedContacts: [],
   };
 
@@ -37,6 +39,10 @@ export default class App extends Component {
   onGroupClick(title) {
     if (this.state.isEditingContacts) {
       this.cancelContactsEditing()
+    }
+
+    if (this.state.isEditingGroup) {
+      this.cancelGroupEditing();
     }
 
     this.setState({selectedGroup: title});
@@ -155,11 +161,18 @@ export default class App extends Component {
     this.setState({isEditingContacts: false, selectedContacts: []})
   }
 
-  get contactControls() {
-    if (this.state.isEditingContacts) {
+  cancelGroupEditing() {
+    this.setState({isEditingGroup: false});
+  }
+
+  get contactPanelControls() {
+    if (this.state.isEditingGroup) {
+      return [];
+    } else if (this.state.isEditingContacts) {
       return [
         <span className="panel-control right"
               style={{color: 'green'}}
+              key={uid()}
               onClick={_ => {
                 this.grContacts[this.state.selectedGroup] = [...this.state.selectedContacts];
                 this.cancelContactsEditing();
@@ -168,6 +181,7 @@ export default class App extends Component {
           &#x2714;
         </span>,
         <span className="panel-control right"
+              key={uid()}
               style={{color: 'red'}}
               onClick={_ => this.cancelContactsEditing()}
         >
@@ -178,6 +192,7 @@ export default class App extends Component {
 
     return [
       <span className="panel-control right"
+            key={uid()}
             onClick={_ => this.setState({
               isEditingContacts: true,
               selectedContacts: [...(this.grContacts[this.state.selectedGroup] || [])]
@@ -187,16 +202,53 @@ export default class App extends Component {
     ];
   }
 
+  get groupPanelControls() {
+    if (this.state.isEditingGroup) {
+      return [
+        <span className="panel-control right"
+              style={{color: 'green'}}
+              key={uid()}
+              onClick={name => {
+                // update group name
+                this.cancelGroupEditing();
+              }}
+        >
+          &#x2714;
+        </span>,
+        <span className="panel-control right"
+              style={{color: 'red'}}
+              key={uid()}
+              onClick={_ => this.cancelGroupEditing()}
+        >
+          &#x2718;
+        </span>,
+      ]
+    }
+
+    if (this.state.selectedGroup) {
+      return [
+        <span className="panel-control right"
+              key={uid()}
+              onClick={_ => this.setState({isEditingGroup: true})}
+        >
+          &#x270e;
+        </span>
+      ];
+    }
+
+    return [];
+  }
+
   render() {
     const panelStyle = {maxHeight: '50%'};
 
     return (
       <div>
         <PanelContainer>
-          <Panel title='Groups' style={panelStyle} key="Groups">
+          <Panel title='Groups' style={panelStyle} key="Groups" controls={this.groupPanelControls}>
             {this.renderGroups()}
           </Panel>,
-          <Panel title='Contacts' style={panelStyle} key="Contacts" controls={this.contactControls}>
+          <Panel title='Contacts' style={panelStyle} key="Contacts" controls={this.contactPanelControls}>
             { this.state.isEditingContacts ?
               this.renderContacts4Editing() :
               this.renderContacts()
