@@ -55,6 +55,8 @@ export default class App extends Component {
     if (e.keyCode === 13) {
       this.renameSelectedGroup(this.groupBeingEdited.contentEl.innerText);
       this.cancelGroupEditing();
+    } else if (e.keyCode === 27) {
+      this.cancelGroupEditing();
     }
   }
 
