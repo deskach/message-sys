@@ -176,7 +176,7 @@ export default class App extends Component {
     const oldName = this.state.selectedGroup;
 
     if (oldName) {
-      this.grContacts[name] = [...this.grContacts[oldName]];
+      this.grContacts[name] = [...(this.grContacts[oldName] || [])];
       delete this.grContacts[oldName];
 
       let groups = [...this.state.groups];
@@ -197,6 +197,16 @@ export default class App extends Component {
 
       this.setState({groups, selectedGroup: undefined});
     }
+  }
+
+  addNewGroup() {
+    const name = 'UNTITLED ' + uid();
+
+    this.setState({
+      groups: [...this.state.groups, name],
+      selectedGroup: name,
+      isEditingGroup: true,
+    })
   }
 
   get contactPanelControls() {
@@ -246,8 +256,7 @@ export default class App extends Component {
         <span className="panel-control right"
               style={{color: 'green'}}
               key={uid()}
-              onClick={name => {
-                // update group name
+              onClick={_ => {
                 this.renameSelectedGroup(that.groupBeingEdited.contentEl.innerText);
                 this.cancelGroupEditing();
               }}
@@ -264,8 +273,19 @@ export default class App extends Component {
       ]
     }
 
+    let controls = [
+      <span className="panel-control right"
+            key={uid()}
+            style={{marginTop: '-3px'}}
+            onClick={_ => this.addNewGroup()}
+      >
+        &#x2295;
+      </span>,
+    ];
+
     if (this.state.selectedGroup) {
-      return [
+      controls = [
+        ...controls,
         <span className="panel-control right"
               key={uid()}
               onClick={_ => this.setState({isEditingGroup: true})}
@@ -281,7 +301,7 @@ export default class App extends Component {
       ];
     }
 
-    return [];
+    return controls;
   }
 
   render() {
