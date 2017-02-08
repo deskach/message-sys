@@ -23,13 +23,19 @@ export default class Group extends BaseItem {
 
   render() {
     let classNames = "panel-item panel-item-group ";
+    let style = {};
 
     if (this.props.selected) {
       classNames += ' panel-item-group-selected';
     }
 
+    if (this.props.contentEditable) {
+      style.cursor = 'default';
+    }
+
     return (
       <div className={classNames}
+           style={style}
            onClick={this.props.onClick}
            ref={r => this.contentEl = r}
            contentEditable={this.props.contentEditable}>

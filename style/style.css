@@ -11,6 +11,10 @@
     cursor: auto;
 }
 
+.default-cursor {
+    cursor: default;
+}
+
 .cursor-y {
     cursor: ns-resize;
 }

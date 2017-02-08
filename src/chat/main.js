@@ -53,13 +53,14 @@ export default class App extends Component {
     return this.state.groups.map(
       title => {
         const contentEditable = this.state.selectedGroup === title && this.state.isEditingGroup;
+        const onClick = contentEditable ? undefined : this.onGroupClick.bind(this, title);
 
         return <GroupItem key={uid()}
                           title={title}
                           ref={contentEditable ? r => this.groupBeingEdited = r : undefined}
                           selected={this.state.selectedGroup === title}
                           contentEditable={contentEditable}
-                          onClick={this.onGroupClick.bind(this, title)}/>
+                          onClick={onClick}/>
       }
     );
   }

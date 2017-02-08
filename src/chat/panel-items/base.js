@@ -4,7 +4,7 @@ import React, {Component, PropTypes} from "react";
 export default class BaseItem extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
     msgCount: PropTypes.number,
     selected: PropTypes.bool,
   };
