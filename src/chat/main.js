@@ -186,7 +186,7 @@ export default class App extends Component {
   renameSelectedGroup(name) {
     const oldName = this.state.selectedGroup;
 
-    if (oldName) {
+    if (oldName && oldName !== name) {
       this.grContacts[name] = [...(this.grContacts[oldName] || [])];
       delete this.grContacts[oldName];
 
