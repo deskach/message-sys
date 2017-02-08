@@ -195,18 +195,20 @@ export default class App extends Component {
           &#x2718;
         </span>,
       ]
-    }
-
-    return [
-      <span className="panel-control right"
-            key={uid()}
-            onClick={_ => this.setState({
-              isEditingContacts: true,
-              selectedContacts: [...(this.grContacts[this.state.selectedGroup] || [])]
-            })}>
+    } else if (this.state.selectedGroup) {
+      return [
+        <span className="panel-control right"
+              key={uid()}
+              onClick={_ => this.setState({
+                isEditingContacts: true,
+                selectedContacts: [...(this.grContacts[this.state.selectedGroup] || [])]
+              })}>
         &#x270e;
       </span>
-    ];
+      ];
+    }
+
+    return [];
   }
 
   renameSelectedGroup(name) {
@@ -220,6 +222,19 @@ export default class App extends Component {
       groups[groups.indexOf(oldName)] = name;
 
       this.setState({groups, selectedGroup: name});
+    }
+  }
+
+  deleteSelectedGroup() {
+    const name = this.state.selectedGroup;
+
+    if (name) {
+      delete this.grContacts[name];
+
+      let groups = [...this.state.groups];
+      groups.splice(groups.indexOf(name), 1);
+
+      this.setState({groups, selectedGroup: undefined});
     }
   }
 
@@ -256,7 +271,13 @@ export default class App extends Component {
               onClick={_ => this.setState({isEditingGroup: true})}
         >
           &#x270e;
-        </span>
+        </span>,
+        <span className="panel-control right"
+              key={uid()}
+              onClick={_ => this.deleteSelectedGroup()}
+        >
+          &#x267B;
+        </span>,
       ];
     }
 
