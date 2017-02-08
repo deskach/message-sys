@@ -172,6 +172,33 @@ export default class App extends Component {
     this.setState({isEditingGroup: false});
   }
 
+  renameSelectedGroup(name) {
+    const oldName = this.state.selectedGroup;
+
+    if (oldName) {
+      this.grContacts[name] = [...this.grContacts[oldName]];
+      delete this.grContacts[oldName];
+
+      let groups = [...this.state.groups];
+      groups[groups.indexOf(oldName)] = name;
+
+      this.setState({groups, selectedGroup: name});
+    }
+  }
+
+  deleteSelectedGroup() {
+    const name = this.state.selectedGroup;
+
+    if (name) {
+      delete this.grContacts[name];
+
+      let groups = [...this.state.groups];
+      groups.splice(groups.indexOf(name), 1);
+
+      this.setState({groups, selectedGroup: undefined});
+    }
+  }
+
   get contactPanelControls() {
     if (this.state.isEditingGroup) {
       return [];
@@ -209,33 +236,6 @@ export default class App extends Component {
     }
 
     return [];
-  }
-
-  renameSelectedGroup(name) {
-    const oldName = this.state.selectedGroup;
-
-    if (oldName) {
-      this.grContacts[name] = [...this.grContacts[oldName]];
-      delete this.grContacts[oldName];
-
-      let groups = [...this.state.groups];
-      groups[groups.indexOf(oldName)] = name;
-
-      this.setState({groups, selectedGroup: name});
-    }
-  }
-
-  deleteSelectedGroup() {
-    const name = this.state.selectedGroup;
-
-    if (name) {
-      delete this.grContacts[name];
-
-      let groups = [...this.state.groups];
-      groups.splice(groups.indexOf(name), 1);
-
-      this.setState({groups, selectedGroup: undefined});
-    }
   }
 
   get groupPanelControls() {
