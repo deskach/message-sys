@@ -35,6 +35,10 @@ export default class App extends Component {
 
 
   onGroupClick(title) {
+    if (this.state.isEditingContacts) {
+      this.cancelContactsEditing()
+    }
+
     this.setState({selectedGroup: title});
   }
 
@@ -147,6 +151,10 @@ export default class App extends Component {
     });
   }
 
+  cancelContactsEditing() {
+    this.setState({isEditingContacts: false, selectedContacts: []})
+  }
+
   get contactControls() {
     if (this.state.isEditingContacts) {
       return [
@@ -154,14 +162,14 @@ export default class App extends Component {
               style={{color: 'green'}}
               onClick={_ => {
                 this.grContacts[this.state.selectedGroup] = [...this.state.selectedContacts];
-                this.setState({isEditingContacts: false, selectedContacts: []})
+                this.cancelContactsEditing();
               }}
         >
           &#x2714;
         </span>,
         <span className="panel-control right"
               style={{color: 'red'}}
-              onClick={_ => this.setState({isEditingContacts: false, selectedContacts: []})}
+              onClick={_ => this.cancelContactsEditing()}
         >
           &#x2718;
         </span>,
