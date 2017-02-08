@@ -34,6 +34,7 @@ export default class App extends Component {
     isEditingGroup: false,
     selectedContacts: [],
   };
+  groupBeingEdited = undefined;
 
 
   onGroupClick(title) {
@@ -50,10 +51,16 @@ export default class App extends Component {
 
   renderGroups() {
     return this.state.groups.map(
-      title => <GroupItem key={uid()}
+      title => {
+        const contentEditable = this.state.selectedGroup === title && this.state.isEditingGroup;
+
+        return <GroupItem key={uid()}
                           title={title}
+                          ref={contentEditable ? r => this.groupBeingEdited = r : undefined}
                           selected={this.state.selectedGroup === title}
+                          contentEditable={contentEditable}
                           onClick={this.onGroupClick.bind(this, title)}/>
+      }
     );
   }
 
@@ -202,7 +209,23 @@ export default class App extends Component {
     ];
   }
 
+  renameSelectedGroup(name) {
+    const oldName = this.state.selectedGroup;
+
+    if (oldName) {
+      this.grContacts[name] = [...this.grContacts[oldName]];
+      delete this.grContacts[oldName];
+
+      let groups = [...this.state.groups];
+      groups[groups.indexOf(oldName)] = name;
+
+      this.setState({groups, selectedGroup: name});
+    }
+  }
+
   get groupPanelControls() {
+    let that = this;
+
     if (this.state.isEditingGroup) {
       return [
         <span className="panel-control right"
@@ -210,6 +233,7 @@ export default class App extends Component {
               key={uid()}
               onClick={name => {
                 // update group name
+                this.renameSelectedGroup(that.groupBeingEdited.contentEl.innerText);
                 this.cancelGroupEditing();
               }}
         >
