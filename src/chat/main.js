@@ -29,7 +29,8 @@ export default class App extends Component {
         "Nulla facilisi. Nunc volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut sit amet orci vel mauris blandit vehicula. Nullam quis enim. Integer dignissim viverra velit. Curabitur in odio. In hac habitasse platea dictumst. Ut consequat, tellus eu volutpat varius, justo orci elementum dolor, sed imperdiet nulla tellus ut diam. Vestibulum ipsum ante, malesuada quis, tempus ac, placerat sit amet, elit.",
       ]
     },
-    editingContacts: false,
+    isEditingContacts: false,
+    selectedContacts: [],
   };
 
 
@@ -75,7 +76,34 @@ export default class App extends Component {
   }
 
   renderContacts4Editing() {
+    const toggleSelectedContact = (contact) => {
+      let selectedContacts = [...this.state.selectedContacts];
+      const pos = selectedContacts.indexOf(contact);
 
+      if (pos >= 0) {
+        selectedContacts.splice(pos, 1);
+      } else {
+        selectedContacts.push(contact);
+      }
+
+      this.setState({selectedContacts});
+    };
+    let contacts = [...TEACHER, ...STUDENT,];
+
+    return contacts.map(name => {
+      let type = ContactItem.TYPE.STUDENT;
+      let selected = (this.state.selectedContacts.indexOf(name) >= 0);
+
+      if (TEACHER.indexOf(name) >= 0) {
+        type = ContactItem.TYPE.TEACHER;
+      }
+
+      return <ContactItem type={type}
+                          key={name}
+                          selected={selected}
+                          onClick={toggleSelectedContact.bind(this, name)}
+                          title={name}/>
+    });
   }
 
   toggleMessageWindow(title) {
@@ -120,16 +148,21 @@ export default class App extends Component {
   }
 
   get contactControls() {
-    if (this.state.editingContacts) {
+    if (this.state.isEditingContacts) {
       return [
         <span className="panel-control right"
               style={{color: 'green'}}
-              onClick={_ => this.setState({editingContacts: false})}>
+              onClick={_ => {
+                this.grContacts[this.state.selectedGroup] = [...this.state.selectedContacts];
+                this.setState({isEditingContacts: false, selectedContacts: []})
+              }}
+        >
           &#x2714;
         </span>,
         <span className="panel-control right"
               style={{color: 'red'}}
-              onClick={_ => this.setState({editingContacts: false})}>
+              onClick={_ => this.setState({isEditingContacts: false, selectedContacts: []})}
+        >
           &#x2718;
         </span>,
       ]
@@ -137,7 +170,10 @@ export default class App extends Component {
 
     return [
       <span className="panel-control right"
-            onClick={_ => this.setState({editingContacts: true})}>
+            onClick={_ => this.setState({
+              isEditingContacts: true,
+              selectedContacts: [...(this.grContacts[this.state.selectedGroup] || [])]
+            })}>
         &#x270e;
       </span>
     ];
@@ -153,7 +189,7 @@ export default class App extends Component {
             {this.renderGroups()}
           </Panel>,
           <Panel title='Contacts' style={panelStyle} key="Contacts" controls={this.contactControls}>
-            { this.state.editingContacts ?
+            { this.state.isEditingContacts ?
               this.renderContacts4Editing() :
               this.renderContacts()
             }
