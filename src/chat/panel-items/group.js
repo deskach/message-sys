@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import BaseItem from "./base";
+import ReactContentEditable from "../react-contenteditable";
 
 export default class Group extends BaseItem {
   static propTypes = {
@@ -12,7 +13,7 @@ export default class Group extends BaseItem {
     contentEditable: false,
   };
 
-  componentDidMount() {
+  componentDidMount() { // If the content is editable select it
     if (this.props.contentEditable) {
       let range = document.createRange();
       range.selectNodeContents(this.contentEl);
@@ -35,14 +36,13 @@ export default class Group extends BaseItem {
     }
 
     return (
-      <div className={classNames}
-           style={style}
-           onClick={this.props.onClick}
-           onKeyDown={this.props.onKeyDown}
-           ref={r => this.contentEl = r}
-           contentEditable={this.props.contentEditable}>
-        {this.props.title}
-      </div>
+      <ReactContentEditable className={classNames}
+                            style={style}
+                            onClick={this.props.onClick}
+                            onKeyDown={this.props.onKeyDown}
+                            ref={r => this.contentEl = r && r.htmlEl}
+                            html={this.props.title}
+                            disabled={!this.props.contentEditable}/>
     )
   }
 }
